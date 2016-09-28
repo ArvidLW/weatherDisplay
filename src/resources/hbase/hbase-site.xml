@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+/**
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+-->
+<configuration>
+ <property>
+  <name>hbase.rootdir</name>
+  <value>hdfs://10.3.9.135:9000/hbase</value>
+ </property>
+ <property>
+  
+  <!-- 
+   /**
+   $表示标识符号{},标识要获取{}中的值,其中user.name应该是从某个容器中得到值
+   http://www.cnblogs.com/mlloc-clove/p/3550498.html
+   EL 存取变量数据的方法很简单，例如：${username}。
+   它的意思是取出某一范围中名称为username的变量。
+   因为我们并没有指定哪一个范围的username，所以它的默认值会先从Page 范围找，
+   假如找不到，再依序到Request、Session、Application范围。（pageScope、requestScope、sessionScope 和
+applicationScope）
+   假如途中找到username，就直接回传，不再继续找下去，
+   但是假如全部的范围都没有找到时，就回传null，
+   当然EL表达式还会做出优化，页面上显示空白，而不是打印输出NULL。
+   
+  这里user.name是linux用户的name,例：root什么的。可以在linux的/home/data/用户名/hbase/下看到相应的内容
+  本地文件系统的临时文件夹。可以修改到一个更为持久的目录上。(/tmp会在重启时清除,如下面)
+  默认: /tmp/hbase-${user.name}
+  */
+  -->
+  <name>hbase.tmp.dir</name>
+  <value>/home/data/${user.name}/hbase</value>
+ </property>
+ <property>
+  <name>hbase.zookeeper.quorum</name>
+  <value>master,hadoop.node1,hadoop.node2,hadoop.node3</value>
+ </property>
+ <property>
+  <name>hbase.zookeeper.property.clientPort</name>
+  <value>2181</value>
+ </property>
+ <property>
+  <name>hbase.zookeeper.property.dataDir</name>
+  <value>/home/data/zookeeper</value>
+ </property>
+ <property>
+ <!-- HBase的运行模式。false是单机模式，true是分布式模式。若为false,HBase和Zookeeper会运行在同一个JVM里面。
+默认: false -->
+  <name>hbase.cluster.distributed</name>
+  <value>true</value>
+ </property>
+ <property>
+  <name>zookeeper.session.timeout</name>
+  <value>120000</value>
+ </property>
+ <property>
+        <name>fs.hdfs.impl</name>
+        <value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
+ </property>  
+</configuration>
