@@ -68,10 +68,11 @@ applicationScope）
  </property>
  <property>
   <name>zookeeper.session.timeout</name>
-  <value>120000</value>
+  <value>300000</value>
  </property>
  <property>
-        <name>fs.hdfs.impl</name>
-        <value>org.apache.hadoop.hdfs.DistributedFileSystem</value>
- </property>  
+  <name>hbase.client.scanner.timeout.period</name>
+  <value>300000</value>
+ </property>
+
 </configuration>

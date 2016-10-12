@@ -41,7 +41,12 @@ import java.util.Date;
 public class GetValue {
 
     //final Logger logger = LoggerFactory.getLogger(AverageInfo.class);
-
+    static Configuration conf=HBaseConfiguration.create();
+    //static SparkConf confsp = new SparkConf().setAppName("AllInfo");
+    static JavaSparkContext sc = new JavaSparkContext(new SparkConf().setAppName("AllInfo"));
+    public static void stop(){
+        sc.stop();
+    }
     public static JavaPairRDD<ImmutableBytesWritable, Result> getColumnValueFromHB(String appName, String tableName, String family, int version) throws IOException {
 
         Scan scan = new Scan();
@@ -52,7 +57,7 @@ public class GetValue {
         //Filter filter=new SingleColumnValueFilter(Bytes.toBytes(f),Bytes.toBytes("Info"), CompareFilter.CompareOp.NOT_EQUAL,Bytes.toBytes("null"));
         //scan.setFilter();
 
-        Configuration conf = HBaseConfiguration.create();
+        //Configuration conf = HBaseConfiguration.create();
         //conf.set("hbase.zookeeper.quorum","10.3.9.135,10.3.9.231,10.3.9.232");
         //conf.set("hbase.zookeeper.property.clientPort","2222");
         conf.set(TableInputFormat.INPUT_TABLE, tableName);
@@ -60,11 +65,11 @@ public class GetValue {
         //SparkConf confsp=new SparkConf().setAppName("SparkHBaseTest").setMaster("yarn-client");
         //SparkConf confsp=new SparkConf().setAppName("SparkHBaseTest").setMaster("spark://10.3.9.135:7077");
         //设置应用名称，就是在spark web端显示的应用名称，当然还可以设置其它的，在提交的时候可以指定，所以不用set上面两行吧
-        SparkConf confsp = new SparkConf().setAppName(appName);
+        //SparkConf confsp = new SparkConf().setAppName(appName);
         //.setMaster("local")//以本地的形式运行
         //.setJars(new String[]{"D:\\jiuzhouwork\\workspace\\hbase_handles\\out\\artifacts\\hbase_handles_jar\\hbase_handles.jar"});
         //创建spark操作环境对象
-        JavaSparkContext sc = new JavaSparkContext(confsp);
+        //JavaSparkContext sc = new JavaSparkContext(confsp);
 //        JavaSparkContext sc = new JavaSparkContext("yarn-client", "hbaseTest",
 //                System.getenv("SPARK_HOME"), System.getenv("JARS"));
         //sc.addJar("D:\\jiuzhouwork\\other\\sparklibex\\spark-examples-1.6.1-hadoop2.7.1.jar");
@@ -90,7 +95,7 @@ public class GetValue {
         scan.setFilter(new RowFilter(CompareFilter.CompareOp.EQUAL,new RegexStringComparator(".*"+nowDate+"$")));
         //scan.set
 
-        Configuration conf = HBaseConfiguration.create();
+        //Configuration conf = HBaseConfiguration.create();
         //conf.set("hbase.zookeeper.quorum","10.3.9.135,10.3.9.231,10.3.9.232");
         //conf.set("hbase.zookeeper.property.clientPort","2222");
         conf.set(TableInputFormat.INPUT_TABLE, tableName);
@@ -102,7 +107,7 @@ public class GetValue {
         //.setMaster("local")//以本地的形式运行
         //.setJars(new String[]{"D:\\jiuzhouwork\\workspace\\hbase_handles\\out\\artifacts\\hbase_handles_jar\\hbase_handles.jar"});
         //创建spark操作环境对象
-        JavaSparkContext sc = new JavaSparkContext(confsp);
+        //JavaSparkContext sc = new JavaSparkContext(confsp);
 //        JavaSparkContext sc = new JavaSparkContext("yarn-client", "hbaseTest",
 //                System.getenv("SPARK_HOME"), System.getenv("JARS"));
         //sc.addJar("D:\\jiuzhouwork\\other\\sparklibex\\spark-examples-1.6.1-hadoop2.7.1.jar");

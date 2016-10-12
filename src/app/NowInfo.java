@@ -30,9 +30,9 @@ public class NowInfo {
                         Bytes.toBytes("cf"), Bytes.toBytes("Info"));
                 JSONObject weatherJson=new JSONObject((new JSONObject(Bytes.toString(v)) ).get("weatherinfo").toString());
                 String sval=weatherJson.get("pm").toString()+","
-                            +weatherJson.get("temp").toString()+","
-                            +weatherJson.get("wse").toString()+","
-                            +weatherJson.get("wd").toString();
+                        +weatherJson.get("temp").toString()+","
+                        +weatherJson.get("wse").toString()+","
+                        +weatherJson.get("wd").toString();
                 String cityName=weatherJson.get("city").toString();
 
                 sval=cityName+","+sval;
